@@ -1,0 +1,4 @@
+#EXTM3U
+
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/6/63/TRT_1_logo.svg",TRT 1
+https://tv-trt1.medya.trt.com.tr/master.m3u8
