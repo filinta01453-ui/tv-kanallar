@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<!-- ZOOM KAPATILDI -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<style>
+body{
+margin:0;
+background:black;
+touch-action:none; /* zoom kapatma */
+}
+
+video{
+width:100vw;
+height:100vh;
+background:black;
+object-fit:contain;
+}
+</style>
+</head>
+
+<body>
+
+<video id="video" autoplay muted playsinline controls></video>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<script>
+
+let params = new URLSearchParams(window.location.search);
+let url = params.get("url");
+
+let video = document.getElementById("video");
+
+// kritik kısım
+video.muted = true;
+video.autoplay = true;
+
+if (Hls.isSupported()) {
+    let hls = new Hls();
+    hls.loadSource(url);
+    hls.attachMedia(video);
+
+    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        video.play();
+    });
+}
+else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = url;
+    video.addEventListener('loadedmetadata', function () {
+        video.play();
+    });
+}
+
+// kullanıcı dokununca sesi aç
+document.body.addEventListener("click", function(){
+    video.muted = false;
+});
+
+</script>
+
+</body>
+</html>
